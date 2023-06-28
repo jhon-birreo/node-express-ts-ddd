@@ -34,6 +34,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@ngneat/falso": "^6.4.0",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
     "@types/cors": "^2.8.13",

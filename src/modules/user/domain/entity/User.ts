@@ -1,4 +1,5 @@
 import { AggregateRoot } from '../../../../shared/domain/AggregateRoot';
+import { Nullable } from '../../../../shared/domain/Nullable';
 import {
 	TimeLine,
 	TimeLineCreatedAt,
@@ -10,15 +11,33 @@ import { UserId } from './UserId';
 import { UserIsActive } from './UserIsActive';
 import { UserName } from './UserName';
 import { UserPassword } from './UserPassword';
+
+interface UserFlattened {
+  id: Nullable<number>;
+  uuid: string;
+  gender: string;
+  firstName: string;
+  lastName: string;
+  birthDate: Date;
+  username: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  profilePicUrl: string;
+  passwordHash: string;
+  roles: string[];
+  verified: boolean;
+  enabled: boolean;
+}
 export class User extends AggregateRoot {
-	readonly id: UserId;
-	readonly name: UserName;
-	readonly email: UserEmail;
-	readonly password: UserPassword;
-	readonly isActive: UserIsActive | null;
-	readonly timeLine: TimeLine;
+	id: Nullable<UserId>;
+	name: UserName;
+	email: UserEmail;
+	password: UserPassword;
+	isActive: UserIsActive | null;
+	timeLine: TimeLine;
 	constructor(
-		id: UserId,
+		id: Nullable<UserId>,
 		name: UserName,
 		email: UserEmail,
 		password: UserPassword,
@@ -34,7 +53,7 @@ export class User extends AggregateRoot {
 		this.timeLine = timeLine;
 	}
 	static create(
-		id: UserId,
+		id: Nullable<UserId>,
 		name: UserName,
 		email: UserEmail,
 		password: UserPassword,
@@ -47,7 +66,7 @@ export class User extends AggregateRoot {
 
 	toPrimitives() {
 		return {
-			id: this.id.value,
+			id: this.id?.value,
 			name: this.name.value,
 			email: this.email.value,
 			password: this.password.value,
