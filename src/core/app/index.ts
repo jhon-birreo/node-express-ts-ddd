@@ -3,7 +3,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express, { Application } from 'express';
 import morgan from 'morgan';
-import router from '../../shared/router';
+import router from '../../shared/infrastructure/router';
 import { env } from '../setting/environment.setting';
 export class App {
 	private app: Application;
