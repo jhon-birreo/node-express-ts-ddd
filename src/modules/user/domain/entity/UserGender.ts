@@ -1,37 +1,35 @@
-import { InvalidParameterException } from "../../../../shared/domain/exceptions";
-import { EnumValueObject } from "../../../../shared/domain/value-object/EnumValueObject";
+import { InvalidParameterException } from '../../../../shared/domain/exceptions';
+import { EnumValueObject } from '../../../../shared/domain/value-object/EnumValueObject';
 
-enum UserGenders {
-  UNDEFINED = 'undefined',
-  MALE = 'male',
-  FEMALE = 'female'
+export enum UserGenderAvaibles {
+	UNDEFINED = 'UNDEFINED',
+	MALE = 'MALE',
+	FEMALE = 'FEMALE'
 }
 
-class UserGender extends EnumValueObject<UserGenders> {
-  constructor(value: UserGenders) {
-    super(value, Object.values(UserGenders));
-  }
+export class UserGender extends EnumValueObject<UserGenderAvaibles> {
+	constructor(value: UserGenderAvaibles) {
+		super(value, Object.values(UserGenderAvaibles));
+	}
 
-  public static fromValue(value: string): UserGender {
-    switch (value) {
-      case UserGenders.UNDEFINED: {
-        return new UserGender(UserGenders.UNDEFINED);
-      }
-      case UserGenders.MALE: {
-        return new UserGender(UserGenders.MALE);
-      }
-      case UserGenders.FEMALE: {
-        return new UserGender(UserGenders.FEMALE);
-      }
-      default: {
-        throw new InvalidParameterException(`The gender ${value} is invalid`);
-      }
-    }
-  }
+	static fromValue(value: string): UserGender {
+		switch (value) {
+			case UserGenderAvaibles.UNDEFINED: {
+				return new UserGender(UserGenderAvaibles.UNDEFINED);
+			}
+			case UserGenderAvaibles.MALE: {
+				return new UserGender(UserGenderAvaibles.MALE);
+			}
+			case UserGenderAvaibles.FEMALE: {
+				return new UserGender(UserGenderAvaibles.FEMALE);
+			}
+			default: {
+				throw new InvalidParameterException(`The gender ${value} is invalid`);
+			}
+		}
+	}
 
-  protected throwErrorForInvalidValue(value: UserGenders): void {
-    throw new InvalidParameterException(`The gender ${value} is invalid`);
-  }
+	protected throwErrorForInvalidValue(value: UserGenderAvaibles): void {
+		throw new InvalidParameterException(`The gender ${value} is invalid`);
+	}
 }
-
-export { UserGender, UserGenders };

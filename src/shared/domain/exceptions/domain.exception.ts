@@ -1,14 +1,12 @@
-abstract class DomainException extends Error {
-  readonly code: string;
+export class DomainException extends Error {
+	statusCode = 404;
 
-  readonly message: string;
+	readonly message: string;
 
-  constructor(code: string, message: string) {
-    super(message);
-    this.name = new.target.name;
-    this.code = code;
-    this.message = message;
-  }
+	constructor(message: string, statusCode?: number) {
+		super(message);
+		this.name = new.target.name;
+		this.statusCode = statusCode || 404;
+		this.message = message;
+	}
 }
-
-export { DomainException };

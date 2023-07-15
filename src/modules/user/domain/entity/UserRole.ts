@@ -1,37 +1,37 @@
-import { EnumValueObject } from "../../../../shared/domain/value-object/EnumValueObject";
-import { InvalidArgumentError } from "../../../../shared/domain/value-object/InvalidArgumentError";
+import { EnumValueObject } from '../../../../shared/domain/value-object/EnumValueObject';
+import { InvalidArgumentError } from '../../../../shared/domain/value-object/InvalidArgumentError';
 
-enum UserRoles {
-  ADMIN = 'admin',
-  USER = 'user',
-  AUDITOR = 'auditor'
+export enum UserRoleAvaibles {
+	ADMIN = 'ADMIN',
+	USER = 'USER',
+	AUDITOR = 'AUDITOR'
 }
 
-class UserRole extends EnumValueObject<UserRoles> {
-  constructor(value: UserRoles) {
-    super(value, Object.values(UserRoles));
-  }
+class UserRole extends EnumValueObject<UserRoleAvaibles> {
+	constructor(value: UserRoleAvaibles) {
+		super(value, Object.values(UserRoleAvaibles));
+	}
 
-  public static fromValue(value: string): UserRole {
-    switch (value) {
-      case UserRoles.ADMIN: {
-        return new UserRole(UserRoles.ADMIN);
-      }
-      case UserRoles.USER: {
-        return new UserRole(UserRoles.USER);
-      }
-      case UserRoles.AUDITOR: {
-        return new UserRole(UserRoles.AUDITOR);
-      }
-      default: {
-        throw new InvalidArgumentError(`The role ${value} is invalid`);
-      }
-    }
-  }
+	public static fromValue(value: string): UserRole {
+		switch (value) {
+			case UserRoleAvaibles.ADMIN: {
+				return new UserRole(UserRoleAvaibles.ADMIN);
+			}
+			case UserRoleAvaibles.USER: {
+				return new UserRole(UserRoleAvaibles.USER);
+			}
+			case UserRoleAvaibles.AUDITOR: {
+				return new UserRole(UserRoleAvaibles.AUDITOR);
+			}
+			default: {
+				throw new InvalidArgumentError(`The role ${value} is invalid`);
+			}
+		}
+	}
 
-  protected throwErrorForInvalidValue(value: UserRoles): void {
-    throw new InvalidArgumentError(`The role ${value} is invalid`);
-  }
+	protected throwErrorForInvalidValue(value: UserRoleAvaibles): void {
+		throw new InvalidArgumentError(`The role ${value} is invalid`);
+	}
 }
 
-export { UserRole, UserRoles };
+export { UserRole, UserRoleAvaibles as UserRoles };

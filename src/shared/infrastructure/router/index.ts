@@ -5,6 +5,7 @@ import userRouter from '../../../modules/user/infrastructure/express/UserRouter'
 const router = Router();
 
 router.use('/healthy', healthyRouter);
-router.use('/user', userRouter);
+// router.use('/user', userRouter);
+router.use('/suscribe', userRouter);
 
 export = router;

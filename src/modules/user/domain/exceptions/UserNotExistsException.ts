@@ -1,9 +1,9 @@
-import { DomainException } from "../../../../shared/domain/exceptions";
+import { DomainException } from '../../../../shared/domain/exceptions';
 
 class UserNotExistsException extends DomainException {
-  constructor(uuid: string) {
-    super('user_not_exists', `User with UUID <${uuid}> does not exists`);
-  }
+	constructor(uuid: string) {
+		super(`User with UUID <${uuid}> does not exists`);
+	}
 }
 
 export { UserNotExistsException };

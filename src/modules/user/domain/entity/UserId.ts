@@ -1,8 +1,9 @@
-import { DomainError } from "../../../../shared/domain/DomainError";
-import { StringValueObject } from "../../../../shared/domain/value-object/StringValueObject";
+import { DomainError } from '../../../../shared/domain/DomainError';
+import { NumberValueObject } from '../../../../shared/domain/value-object/IntValueObject';
+import { StringValueObject } from '../../../../shared/domain/value-object/StringValueObject';
 
-export class UserId extends StringValueObject {
-	constructor(value: string) {
+export class UserId extends NumberValueObject {
+	constructor(value: number) {
 		super(value);
 		// this.validatePrefix(value);
 	}
@@ -11,5 +12,4 @@ export class UserId extends StringValueObject {
 	// 		throw new DomainError('Token no válido!');
 	// 	}
 	// }
-
 }

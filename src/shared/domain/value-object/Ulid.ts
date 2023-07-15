@@ -1,30 +1,28 @@
-import { ulid } from 'ulid'
+import { ulid } from 'ulid';
 import { InvalidArgumentError } from './InvalidArgumentError';
 
 export class Ulid {
-  readonly value: string;
+	readonly value: string;
 
-  static pattern:RegExp = /[0-9A-HJKMNP-TV-Z]{26}/
+	static pattern = /[0-9A-HJKMNP-TV-Z]{26}/;
 
+	constructor(value: string) {
+		this.ensureIsValidUuid(value);
 
-  constructor(value: string) {
-    this.ensureIsValidUuid(value);
+		this.value = value;
+	}
 
-    this.value = value;
-  }
-  
-  static random(): Ulid {
-    return new Ulid(ulid());
-  }
+	static random(): Ulid {
+		return new Ulid(ulid());
+	}
 
-  private ensureIsValidUuid(id: string): void {
+	private ensureIsValidUuid(id: string): void {
+		if (!(typeof id === 'string' && Ulid.pattern.test(id))) {
+			throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${id}>`);
+		}
+	}
 
-    if (!(typeof id === 'string' && Ulid.pattern.test(id))) {
-      throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${id}>`);
-    }
-  }
-
-  toString(): string {
-    return this.value;
-  }
+	toString(): string {
+		return this.value;
+	}
 }

@@ -1,54 +1,52 @@
-
-
 export abstract class DateValueObject {
-  readonly value: Date;
+	readonly value: Date;
 
-  constructor(value: Date) {
-    this.value = value
-  }
+	constructor(value: Date) {
+		this.value = value;
+	}
 
-  equalsTo(other: DateValueObject): boolean {
-    return this.value === other.value
-  }
+	equalsTo(other: DateValueObject): boolean {
+		return this.value === other.value;
+	}
 
-  isBiggerThan(other: DateValueObject): boolean {
-    return this.value > other.value
-  }
-  
-  isSmallerThan(other: DateValueObject): boolean {
-    return this.value < other.value
-  }
+	isBiggerThan(other: DateValueObject): boolean {
+		return this.value > other.value;
+	}
 
-  isBiggerOrEqualThan(other: DateValueObject): boolean {
-    return this.value >= other.value
-  }
-  isSmallerOrEqualThan(other: DateValueObject): boolean {
-    return this.value <= other.value
-  }
+	isSmallerThan(other: DateValueObject): boolean {
+		return this.value < other.value;
+	}
 
-  toString(): string {
-    return this.value ? this.value.toISOString() : ""
-  }
-  
-  getMonth(): string {
-    const month = this.value.getMonth() + 1;
-    return month < 10 ? `0${month}` : month.toString();
-  }
+	isBiggerOrEqualThan(other: DateValueObject): boolean {
+		return this.value >= other.value;
+	}
+	isSmallerOrEqualThan(other: DateValueObject): boolean {
+		return this.value <= other.value;
+	}
 
-  getDay(): string {
-    const day = this.value.getDate();
-    return day < 10 ? `0${day}` : day.toString();
-  }
+	toString(): string {
+		return this.value ? this.value.toISOString() : '';
+	}
 
-  getYear(): string {
-    return this.value.getFullYear().toString();
-  }
+	getMonth(): string {
+		const month = this.value.getMonth() + 1;
+		return month < 10 ? `0${month}` : month.toString();
+	}
 
-  isEmpty(): boolean {
-    return !this.value || this.value.toString() === "";
-  }
-  
-  toDateTimeValue(): string {
-    return this.isEmpty() ? "" : `${this.getYear()}-${this.getMonth()}-${this.getDay()}T00:00:00-05:00`;
-  }
+	getDay(): string {
+		const day = this.value.getDate();
+		return day < 10 ? `0${day}` : day.toString();
+	}
+
+	getYear(): string {
+		return this.value.getFullYear().toString();
+	}
+
+	isEmpty(): boolean {
+		return !this.value || this.value.toString() === '';
+	}
+
+	toDateTimeValue(): string {
+		return this.isEmpty() ? '' : `${this.getYear()}-${this.getMonth()}-${this.getDay()}T00:00:00-05:00`;
+	}
 }

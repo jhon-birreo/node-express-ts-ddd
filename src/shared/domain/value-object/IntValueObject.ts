@@ -1,25 +1,25 @@
 export abstract class NumberValueObject {
-  readonly value: number;
+	readonly value: number;
 
-  constructor(value: number) {
-    this.value = value;
-  }
+	constructor(value: number) {
+		this.value = value;
+	}
 
-  equalsTo(other: NumberValueObject): boolean {
-    return this.value === other.value;
-  }
+	equalsTo(other: NumberValueObject): boolean {
+		return this.value === other.value;
+	}
 
-  isBiggerThan(other: NumberValueObject): boolean {
-    return this.value > other.value;
-  }
+	isBiggerThan(other: NumberValueObject): boolean {
+		return this.value > other.value;
+	}
 
-  // toString(): string {
-  //   return this.value ? this.value.toString() : null;
-  // }
+	// toString(): string {
+	//   return this.value ? this.value.toString() : null;
+	// }
 
-  toFixed(digits: number = 5): string {
-    let number = Number(this.value ?? null);
+	toFixed(digits = 5): string {
+		const number = Number(this.value ?? null);
 
-    return number.toFixed(digits);
-  }
+		return number.toFixed(digits);
+	}
 }

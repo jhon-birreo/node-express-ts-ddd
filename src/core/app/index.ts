@@ -1,7 +1,8 @@
-import { json, urlencoded } from 'body-parser';
+import bodyParser, { json, urlencoded } from 'body-parser';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express, { Application } from 'express';
+import { responseEnhancer } from 'express-response-formatter';
 import morgan from 'morgan';
 import router from '../../shared/infrastructure/router';
 import { env } from '../setting/environment.setting';
@@ -24,7 +25,8 @@ export class App {
 		this.app.use(json());
 		this.app.use(morgan('dev'));
 		this.app.use(cors());
-		// this.app.use(responseEnhancer());
+		this.app.use(bodyParser.json());
+		this.app.use(responseEnhancer());
 	}
 
 	async database() {

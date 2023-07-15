@@ -1,5 +1,5 @@
-import { DomainError } from "../../../../shared/domain/DomainError";
-import { StringValueObject } from "../../../../shared/domain/value-object/StringValueObject";
+import { DomainError } from '../../../../shared/domain/DomainError';
+import { StringValueObject } from '../../../../shared/domain/value-object/StringValueObject';
 
 export class UserEmail extends StringValueObject {
 	constructor(value: string) {
@@ -12,8 +12,8 @@ export class UserEmail extends StringValueObject {
 			throw new DomainError('La dirección de correo electrónico es requerido');
 		}
 		const domainValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value.trim());
-    if (!domainValid) {
-      throw new DomainError('¡Ha ingresado una dirección de correo electrónico no válida!');
-    }
+		if (!domainValid) {
+			throw new DomainError('¡Ha ingresado una dirección de correo electrónico no válida!');
+		}
 	}
 }

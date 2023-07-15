@@ -1,4 +1,4 @@
-import { DateValueObject } from "../../../../shared/domain/value-object/DateValueObject";
+import { DateValueObject } from '../../../../shared/domain/value-object/DateValueObject';
 
 class UserBirthDate extends DateValueObject {}
 

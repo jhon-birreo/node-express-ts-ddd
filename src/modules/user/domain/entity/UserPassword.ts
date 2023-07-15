@@ -1,5 +1,5 @@
-import { DomainError } from "../../../../shared/domain/DomainError";
-import { StringValueObject } from "../../../../shared/domain/value-object/StringValueObject";
+import { DomainError } from '../../../../shared/domain/DomainError';
+import { StringValueObject } from '../../../../shared/domain/value-object/StringValueObject';
 
 export class UserPassword extends StringValueObject {
 	constructor(value: string) {

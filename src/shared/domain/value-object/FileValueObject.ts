@@ -1,11 +1,11 @@
 export abstract class FileValueObject {
-    readonly content: string;
+	readonly content: string;
 
-    constructor(content: string) {
-        this.content = content;
-    }
+	constructor(content: string) {
+		this.content = content;
+	}
 
-    toPrimitive(): Object {
-        return this.content;
-    }
+	toPrimitive(): Object {
+		return this.content;
+	}
 }

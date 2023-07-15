@@ -7,41 +7,34 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-enum Gender {
+enum UserGenderAvaibles {
   UNDEFINED
   MALE
   FEMALE
 }
 
-enum Role {
+enum UserRoleAvailables {
   ADMIN
   USER
   AUDITOR
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  uuid          String    @unique @db.VarChar(1000)
-  gender        Gender    @default(UNDEFINED)
-  firstName     String    @db.VarChar(255)
-  lastName      String    @db.VarChar(500)
-  birthDate     DateTime  @db.Date
-  username      String    @unique @db.VarChar(100)
-  email         String    @unique @db.VarChar(255)
-  phoneNumber   String    @db.VarChar(100)
-  address       String    @db.VarChar(1500)
-  profilePicUrl String    @db.VarChar(2500)
-  password  String    @db.VarChar(100)
-  verified      Boolean   @default(false)
-  enabled       Boolean   @default(true)
-  roles         Role[]    @default([USER])
-  createdAt     DateTime? @default(now()) @db.Timestamptz(3)
-  updatedAt     DateTime? @default(now()) @updatedAt @db.Timestamptz(3)
-  deletedAt     DateTime? @db.Timestamptz(3)
-  
+  id            Int                   @id @default(autoincrement())
+  uuid          String                @unique @db.VarChar(1000)
+  firstName     String                @db.VarChar(255)
+  lastName      String?               @db.VarChar(500)
+  email         String                @unique @db.VarChar(255)
+  password      String                @db.VarChar(100)
+  phoneNumber   String?               @db.VarChar(100)
+  avatar        String?               @db.VarChar(2500)
+  gender        UserGenderAvaibles    @default(UNDEFINED)
+  roles         UserRoleAvailables[]                @default([USER])
+  enabled       Boolean               @default(true)
+  timeLine      Json     
+
   @@map("users")
 }
-
 
 
 model Product {

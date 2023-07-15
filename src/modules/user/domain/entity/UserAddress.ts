@@ -1,4 +1,4 @@
-import { StringValueObject } from "../../../../shared/domain/value-object/StringValueObject";
+import { StringValueObject } from '../../../../shared/domain/value-object/StringValueObject';
 
 class UserAddress extends StringValueObject {}
 

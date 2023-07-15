@@ -1,91 +1,124 @@
 import { AggregateRoot } from '../../../../shared/domain/AggregateRoot';
 import { Nullable } from '../../../../shared/domain/Nullable';
-import {
-	TimeLine,
-	TimeLineCreatedAt,
-	TimeLineDeletedAt,
-	TimeLineUpdatedAt
-} from '../../../../shared/domain/value-object/TimeLine';
+import { TimeLine } from '../../../../shared/domain/value-object/TimeLine';
+import { UserAvatar } from './UserAvatar';
 import { UserEmail } from './UserEmail';
+import { UserEnabled } from './UserEnable';
+import { UserFirstName } from './UserFirstName';
+import { UserGender } from './UserGender';
 import { UserId } from './UserId';
-import { UserIsActive } from './UserIsActive';
-import { UserName } from './UserName';
+import { UserLastName } from './UserLastName';
 import { UserPassword } from './UserPassword';
+import { UserPhoneNumber } from './UserPhoneNumber';
+import { UserRole } from './UserRole';
+import { UserUuid } from './UserUuid';
 
-interface UserFlattened {
-  id: Nullable<number>;
-  uuid: string;
-  gender: string;
-  firstName: string;
-  lastName: string;
-  birthDate: Date;
-  username: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  profilePicUrl: string;
-  passwordHash: string;
-  roles: string[];
-  verified: boolean;
-  enabled: boolean;
-}
 export class User extends AggregateRoot {
 	id: Nullable<UserId>;
-	name: UserName;
+	uuid: UserUuid;
+	firstName: UserFirstName;
+	lastName: Nullable<UserLastName>;
 	email: UserEmail;
 	password: UserPassword;
-	isActive: UserIsActive | null;
+	gender: UserGender;
+	roles: UserRole;
+	phoneNumber: Nullable<UserPhoneNumber>;
+	avatar: Nullable<UserAvatar>;
+	enabled: UserEnabled;
 	timeLine: TimeLine;
 	constructor(
 		id: Nullable<UserId>,
-		name: UserName,
+		uuid: UserUuid,
+		firstName: UserFirstName,
+		lastName: Nullable<UserLastName>,
 		email: UserEmail,
 		password: UserPassword,
-		isActive: UserIsActive | null,
+		gender: UserGender,
+		roles: UserRole,
+		phoneNumber: Nullable<UserPhoneNumber>,
+		avatar: Nullable<UserAvatar>,
+		enabled: UserEnabled,
 		timeLine: TimeLine
 	) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.uuid = uuid;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.isActive = isActive;
+		this.gender = gender;
+		this.roles = roles;
+		this.phoneNumber = phoneNumber;
+		this.avatar = avatar;
+		this.enabled = enabled;
 		this.timeLine = timeLine;
 	}
 	static create(
 		id: Nullable<UserId>,
-		name: UserName,
+		uuid: UserUuid,
+		firstName: UserFirstName,
+		lastName: Nullable<UserLastName>,
 		email: UserEmail,
 		password: UserPassword,
-		isActive: UserIsActive | null,
+		gender: UserGender,
+		roles: UserRole,
+		phoneNumber: Nullable<UserPhoneNumber>,
+		avatar: Nullable<UserAvatar>,
+		enabled: UserEnabled,
 		timeLine: TimeLine
 	): User {
-		const user = new User(id, name, email, password, isActive, timeLine);
+		const user = new User(
+			id,
+			uuid,
+			firstName,
+			lastName,
+			email,
+			password,
+			gender,
+			roles,
+			phoneNumber,
+			avatar,
+			enabled,
+			timeLine
+		);
 		return user;
 	}
 
 	toPrimitives() {
 		return {
 			id: this.id?.value,
-			name: this.name.value,
+			uuid: this.uuid.value,
+			firstName: this.firstName.value,
+			lastName: this.lastName?.value,
 			email: this.email.value,
 			password: this.password.value,
-			isActive: this.isActive ? this.isActive.value : true,
+			gender: this.gender.value,
+			roles: this.roles.value,
+			phoneNumber: this.phoneNumber?.value,
+			avatar: this.avatar?.value,
+			enabled: this.enabled ? this.enabled.value : true,
 			timeLine: this.timeLine.toPrimitives()
 		};
 	}
 
-	static fromPrimitives(primitives: any) {
+	static fromPrimitives(primitives: any): User {
 		return new User(
 			new UserId(primitives.id),
-			new UserName(primitives.name),
+			new UserUuid(primitives.uuid),
+			new UserFirstName(primitives.firsName),
+			new UserLastName(primitives.lastName),
 			new UserEmail(primitives.email),
 			new UserPassword(primitives.password),
-			new UserIsActive(primitives.isActive),
+			new UserGender(primitives.gender),
+			new UserRole(primitives.role),
+			new UserPhoneNumber(primitives.phoneNumber),
+			new UserAvatar(primitives.avatar),
+			new UserEnabled(primitives.enabled),
 			new TimeLine(
-				TimeLineCreatedAt.fromString(primitives.timeLine.created),
-				primitives.timeLine.updated ? TimeLineUpdatedAt.fromString(primitives.timeLine.updated) : null,
-				primitives.timeLine.deleted ? TimeLineDeletedAt.fromString(primitives.timeLine.deleted) : null
+				primitives.timeLine.created,
+				primitives.timeLine.updated || null,
+				primitives.timeLine.deleted || null
 			)
 		);
 	}
@@ -103,5 +136,20 @@ export class User extends AggregateRoot {
 				}
 			}
 		});
+	}
+
+	delete(): User {
+		const deletedUser = User.fromPrimitives({
+			...this.toPrimitives(),
+			...{
+				timeLine: {
+					...this.timeLine.toPrimitives(),
+					...{
+						deleted: new Date().toISOString()
+					}
+				}
+			}
+		});
+		return deletedUser;
 	}
 }
