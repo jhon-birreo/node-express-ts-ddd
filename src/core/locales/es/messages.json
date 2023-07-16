@@ -1,0 +1,20 @@
+{
+	"errors": {
+		"generic": {
+			"urlNotFound": "URL no encontrada",
+			"badRequest": "Bad request",
+			"unauthorized": "No autorizado",
+			"failedDependency": "error de dependencia",
+			"internalServer": "Error interno del servidor"
+			
+		},
+		"custom": {
+			"plaftFailed": "Plaft error",
+			"secretNoFound": "Secret no disponible"
+		}
+	},
+	"plaft": {
+		"documentNumberRequired": "El campo número de documento es requerido",
+		"documentNumberInvalid": "El campo número de documento es inválido"
+	} 
+}
